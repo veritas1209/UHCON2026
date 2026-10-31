@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Credentials and runtime state
+.env
+.env.*
+*.cookie
+*.cookies
+*cookie*.txt
+*session*.json
+*account*.json
+*solve-state*.json
+*_result.json
+remote_attempts.json
+remote_success.json
+
+# Browser profiles and caches
+*profile*/
+chrome-cdp*/
+chrome-*/
+edge-*/
+.chrome-*/
+.edge-*/
+
+# Analysis/build artifacts
+*.log
+core
+core.*
+*.o
+*.so
+*.ko
+*.elf
+*.exe
+*.out
+*.pcap
+*.pcapng
+.DS_Store
+Thumbs.db

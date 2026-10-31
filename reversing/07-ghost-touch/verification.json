@@ -1,0 +1,11 @@
+{
+  "url": "http://3.36.129.171:8080/api/capture",
+  "time_utc": "2026-10-31T01:10:51.124216+00:00",
+  "http_status": 200,
+  "request_sha256": "e2d403211e81ea68fb3cc5fcdcbc23e5d5b96ad38d48b44a3c65c7688fa0fb20",
+  "response": {
+    "status": "OPEN",
+    "flag": "FLAG{228a5ebdb78f46f9829470e1704d8111}"
+  },
+  "raw_response": "{\"status\":\"OPEN\",\"flag\":\"FLAG{228a5ebdb78f46f9829470e1704d8111}\"}"
+}
