@@ -1,63 +1,35 @@
-# UHCON 2026 Quals Writeups
+# UHCON 2026 Writeups
 
-> 🥇 **예선 1위 · 8 / 8 solved**
+UHCON 2026 예선과 결선에서 사용한 풀이 기록과 최소 재현 코드를 정리한 저장소입니다.
+공식 문제 바이너리, VM 이미지, 브라우저 번들, 세션 쿠키와 실행 로그는 포함하지 않습니다.
 
-2026년 10월 31일 진행된 UHCON 2026 예선의 전체 풀이와 최종 solver/exploit을 정리한 저장소입니다.
+## 디렉터리
 
-각 문제 디렉터리의 `README.md`에는 분석 과정, 핵심 취약점 또는 역산 방법, 재현 절차, 플래그, 최종 코드 전문이 들어 있습니다. 한 문서로 이어서 보고 싶다면 [FULL_WRITEUP.md](FULL_WRITEUP.md)를 확인하세요.
+- [`quals/`](quals/): 2026-10-31 예선, 8 / 8 solved
+- [`final/`](final/): 2026-11-07 결선 문제별 기록
 
-## Challenges
+## Final 상태
 
-| ID | Challenge | Category | 핵심 아이디어 |
-| ---: | --- | :---: | --- |
-| 1 | [Circulation](pwn/01-circulation/) | Pwn / Kernel | lease UAF → PTE 재활용 → kCFI 대응 callback |
-| 2 | [blitter](pwn/02-blitter/) | Pwn | UAF, safe-linking, large-tcache, wide-FILE FSOP |
-| 3 | [Media Approval](web/03-media-approval/) | Web | TinyMCE DOM clobbering + NotchLC stale-stack leak |
-| 4 | [ThreadMAZE](reversing/04-threadmaze/) | Reversing | 코드 레이아웃 복원 + 13단계 dispatcher 역연산 |
-| 5 | [Archive Relay](pwn/05-archive-relay/) | Pwn / Web | 이중 디코딩 SQLi + SQLite race + `system(db)` |
-| 6 | [KSMC](web/06-ksmc/) | Web | stored CSS oracle + reviewer capability + ZIP import |
-| 7 | [Ghost Touch](reversing/07-ghost-touch/) | Reversing / Firmware | Cortex-M7 모델 복호화 + 제스처 합성 |
-| 8 | [Block Inspection Service](web/08-block-inspection-service/) | Web | CRLF smuggling + Arrow fixed-width OOB read |
+| ID | 문제 | 상태 | 공개 자료 범위 |
+| ---: | --- | --- | --- |
+| 1 | [SheBanG](final/01-shebang/) | KoTH 참가 완료 | 생성기, 누적 금지 바이트 대응, 라운드별 결과 |
+| 2 | [Deadband](final/02-deadband/) | 해결·플랫폼 확인 | CDATA/HTML 재해석, manifest loader, 최종 solver |
+| 3 | [Bot](final/03-bot/) | 팀 해결 확인 | 공개 산출물은 부분 재현이며 최종 live run 전체를 독립 재현하지 않음 |
+| 4 | [Cold Boot](final/04-cold-boot/) | 플래그 회수·원격 solver 검증 | 펌웨어 분석, PAX/HENV/RMAP 체인 |
+| 5 | [DVD](final/05-dvd/) | **대회 중 미해결** | 실패한 CR4 경로와 사후 공식 PTE/PXE 해법 비교 |
+| 6 | [Sealed Update](final/06-sealed-update/) | 해결·Correct 응답 확인 | 사용자/커널 2단 검증 역산 |
+| 7 | [Latchwork](final/07-latchwork/) | 해결·제출 확인 | 128-cycle 역산 solver |
 
-## Repository layout
+## 재현 범위
 
-```text
-.
-├── pwn/
-│   ├── 01-circulation/
-│   ├── 02-blitter/
-│   └── 05-archive-relay/
-├── reversing/
-│   ├── 04-threadmaze/
-│   └── 07-ghost-touch/
-├── web/
-│   ├── 03-media-approval/
-│   ├── 06-ksmc/
-│   └── 08-block-inspection-service/
-├── FULL_WRITEUP.md
-└── requirements.txt
-```
-
-문제별 디렉터리에는 다음 자료만 선별해 두었습니다.
-
-- 전체 풀이가 담긴 `README.md`
-- 실제 최종 solver/exploit 소스
-- solver가 직접 사용하는 작은 상태 파일 또는 입력 샘플
-
-브라우저 프로필, 쿠키, 계정 상태, 로그, 디버거 덤프, 컴파일 산출물과 대용량 중간 파일은 포함하지 않습니다.
-
-## Reproduction
-
-공통 Python 의존성은 다음과 같이 설치할 수 있습니다.
+각 문제 폴더에는 한국어 풀이와 최종 또는 가장 가까운 solver 소스만 남겼습니다.
+공식 첨부 파일이 필요한 경우 문제 페이지에서 받은 파일을 해당 폴더에 별도로 배치해야 합니다.
+대회 서버 종료 뒤에는 원격 단계가 그대로 재현되지 않을 수 있습니다.
 
 ```bash
-python -m pip install -r requirements.txt
+python -m pip install -r final/requirements.txt
 ```
 
-공식 문제 첨부 파일은 이 저장소에서 재배포하지 않습니다. 바이너리나 컨테이너가 필요한 문제는 각 문제의 `README.md`에 적힌 위치에 공식 첨부 파일을 풀어 둔 뒤 실행하세요. 대회 서버가 종료된 경우 원격 제출 단계는 재현되지 않을 수 있습니다.
+## 주의
 
-공개본에서는 개인 머신의 절대 경로만 현재 파일 기준의 상대 경로로 정리했으며, 공격 로직과 최종 코드는 그대로 보존했습니다.
-
-## Disclaimer
-
-이 코드는 종료된 CTF 문제의 학습과 재현을 위해 공개합니다. 허가받지 않은 시스템을 대상으로 사용하지 마세요.
+이 코드는 종료된 CTF 문제의 학습과 재현을 위한 것입니다. 허가받지 않은 시스템에 사용하지 마세요.
